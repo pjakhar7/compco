@@ -32,7 +32,7 @@ int main(){
         s.insert({c.second, c.first});
         // cout << c.first << " : " << c.second << endl;
     }
-    if(s.size()<3){
+    if(s.begin()->first!=0){
         cout << "Impossible" << endl;
         return 0;
     }

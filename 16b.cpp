@@ -31,11 +31,10 @@ int main(){
             res += nums[i].first * nums[i].second;
             curcnt += nums[i].second;
         } else{
-            res += nums[i].second * (n-nums[i].second);
-            curcnt += n-nums[i].second;
+            res += nums[i].first * (n-curcnt);
+            curcnt += n-curcnt;
         }
     }
-
     cout << res << endl;
 
     return 0;
