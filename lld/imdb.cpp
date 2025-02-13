@@ -6,7 +6,8 @@ int uuidGen=0;
 using namespace std;
 
 int getUUID(){
-    return uuidGen++;
+    int uid = rand();
+    return uid;
 }
 
 enum Status {BOOKED, AVAILABLE, PENDING};
@@ -22,6 +23,18 @@ class CinemaHall{
     string name;
     int seatingCapacity;
     string desc;
+};
+
+
+class Show{
+    
+    string movieId;
+    string cinemaHallId;
+    string dateTime;
+    string duration;
+    vector<Seat> seats;
+
+
 };
 
 class Cinema{
@@ -43,17 +56,6 @@ class Movie{
     int duration;
 };
 
-
-class Show{
-    
-    string movieId;
-    string cinemaHallId;
-    string dateTime;
-    string duration;
-    vector<Seat> seats;
-
-
-};
 
 class Booking{
     int bookingId;
