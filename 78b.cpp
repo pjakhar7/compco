@@ -49,24 +49,25 @@ const ll inf = 1LL<<60;
 const ld ep = 0.0000001;
 const ld pi = acos(-1.0);
 
+vector<char> colors = {'R', 'O', 'Y', 'G', 'B', 'I', 'V'};
 
 int main(){
-    ll n, m, temp;
-    cin >> n;
-    vector<ll> arr(n);
-    geta(arr, 0, n);
-    cin >> m;
-    unordered_map<int,int> pos;
-    for(int i=0; i<n; i++)
-        pos[arr[i]] = i+1;
-    ll v=0, p=0;
-    for(int i=0; i<m; i++){
-        cin >> temp;
-        v += pos[temp];
-        p += n-pos[temp]+1;
-
+    ll n, ci=0;
+    cin >>n;
+    ll rem = n%7;
+    int i=0;
+    for(; i<n-rem; i++){
+        cout << colors[i%7];
     }
-
-    cout << v << " " << p << endl;
+    
+    if(rem<4){
+        for(; i<n; i++)
+            cout << colors[i%7+3];
+        }
+    else{ 
+        for(; i<n; i++)
+            cout << colors[i%7] ;
+        }
+    cout << endl;
     return 0;
 }

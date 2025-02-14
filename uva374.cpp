@@ -49,24 +49,30 @@ const ll inf = 1LL<<60;
 const ld ep = 0.0000001;
 const ld pi = acos(-1.0);
 
+ll expo(ll b, ll p, ll m){
+    // cout << p << " ";
+    if(p==0)
+        return 1;
+    if(p==1)
+        return b;
+    if(p%2)
+        return (b*expo(b, p-1, m))%m;
+    ll res = expo(b, p/2, m)%m;
+    
+    res = (res*res)%m;
+    return res;
+}
 
 int main(){
-    ll n, m, temp;
-    cin >> n;
-    vector<ll> arr(n);
-    geta(arr, 0, n);
-    cin >> m;
-    unordered_map<int,int> pos;
-    for(int i=0; i<n; i++)
-        pos[arr[i]] = i+1;
-    ll v=0, p=0;
-    for(int i=0; i<m; i++){
-        cin >> temp;
-        v += pos[temp];
-        p += n-pos[temp]+1;
-
+    int t;
+    cin >> t;
+    while(t--){    
+        ll b, p, m;
+        cin >> b;
+        cin >> p;
+        cin >> m;
+        // cout << b <<" "<< p <<" " << m << endl;
+        cout << expo(b%m, p, m) << endl;
     }
-
-    cout << v << " " << p << endl;
     return 0;
 }

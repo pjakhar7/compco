@@ -49,24 +49,20 @@ const ll inf = 1LL<<60;
 const ld ep = 0.0000001;
 const ld pi = acos(-1.0);
 
+void func(string in, string &out){
+    if(in.size()==0)
+        return ;
+    out.insert(out.size()/2, 1, in[in.size()-1]);
+    func(in.substr(0, in.size()-1), out);
+}
 
 int main(){
-    ll n, m, temp;
+    int n;
+    string inp;
     cin >> n;
-    vector<ll> arr(n);
-    geta(arr, 0, n);
-    cin >> m;
-    unordered_map<int,int> pos;
-    for(int i=0; i<n; i++)
-        pos[arr[i]] = i+1;
-    ll v=0, p=0;
-    for(int i=0; i<m; i++){
-        cin >> temp;
-        v += pos[temp];
-        p += n-pos[temp]+1;
+    cin >> inp;
 
-    }
-
-    cout << v << " " << p << endl;
-    return 0;
+    string out = "";
+    func(inp, out);
+    cout << out << endl;
 }

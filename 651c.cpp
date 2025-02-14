@@ -51,22 +51,26 @@ const ld pi = acos(-1.0);
 
 
 int main(){
-    ll n, m, temp;
+    ll n, x, y;
     cin >> n;
-    vector<ll> arr(n);
-    geta(arr, 0, n);
-    cin >> m;
-    unordered_map<int,int> pos;
-    for(int i=0; i<n; i++)
-        pos[arr[i]] = i+1;
-    ll v=0, p=0;
-    for(int i=0; i<m; i++){
-        cin >> temp;
-        v += pos[temp];
-        p += n-pos[temp]+1;
-
+    map<ll, ll> mx, my;
+    map<pair<ll,ll>,ll> points;
+    for(int i=0; i<n; i++){
+        cin >> x >> y ;
+        mx[x]++;
+        my[y]++;
+        points[make_pair(x, y)]++;
     }
-
-    cout << v << " " << p << endl;
+    ll res = 0;
+    for(auto i: mx){
+        res += ((i.second-1)*i.second)/2;
+    }
+    for(auto i: my){
+        res += ((i.second-1)*i.second)/2;
+    }
+    for(auto i: points){
+        res -= ((i.second-1)*i.second)/2;
+    }
+    cout << res << endl;
     return 0;
 }
