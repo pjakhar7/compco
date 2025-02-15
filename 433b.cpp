@@ -51,13 +51,27 @@ const ld pi = acos(-1.0);
 
 
 int main(){
-    int t;
-    cin >> t;
-    while(t--){    
-        int n;
-        cin >> n;
-        vector<ll> arr(n);
-        geta(arr, 0, n);
-    }
+    int n, m, type, l, r;
+    cin >> n;
+    vector<ll> arr(n);
+    geta(arr, 0, n);
+    vector<ll> pref(n+1, 0), pref2(n+1, 0);
+    for(int i=1; i<=n; i++)
+        pref[i] = arr[i-1]+pref[i-1];
+    sort(arr.begin(), arr.end());
+    for(int i=1; i<=n; i++)
+        pref2[i] = arr[i-1]+pref2[i-1];    
+    
+    cin >> m;
+    for(int i=0; i<m; i++){
+        cin >> type >> l >> r ;
+        ll res = 0;
+        if(type==2){
+            res = pref2[r] - pref2[l-1];
+        } else {
+            res = pref[r] - pref[l-1];
+        }
+        cout << res << endl;
+    }    
     return 0;
 }

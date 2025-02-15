@@ -54,10 +54,22 @@ int main(){
     int t;
     cin >> t;
     while(t--){    
-        int n;
-        cin >> n;
+        int n, x;
+        cin >> n; 
         vector<ll> arr(n);
         geta(arr, 0, n);
+        cin >> x;
+        int i=0, j=0;
+        int res = 0, cursum=0;
+        while(i<n){
+            while(cursum<x && j<n){
+                cursum += arr[j];
+                j++;
+            }
+            res = min(res, j-i);
+            cursum -= arr[i];
+            i++;
+        }
     }
     return 0;
 }

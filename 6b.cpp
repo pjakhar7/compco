@@ -51,13 +51,39 @@ const ld pi = acos(-1.0);
 
 
 int main(){
-    int t;
-    cin >> t;
-    while(t--){    
-        int n;
-        cin >> n;
-        vector<ll> arr(n);
-        geta(arr, 0, n);
+    ll n, m;
+    char pres;
+    cin >> n >> m >> pres;
+    vector<string> seats;
+    string temp;
+    for(int i=0; i<n; i++){
+        cin >> temp;
+        seats.push_back(temp);
     }
+    // for(int i=0; i<n; i++){
+    //     for(int j=0; j<m; j++){
+    //         cout << seats[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    set<char> deputies;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            if(seats[i][j] == pres){
+                if(i+1<n)
+                    deputies.insert(seats[i+1][j]);
+                if(i>0)
+                    deputies.insert(seats[i-1][j]);
+                if(j+1<m)
+                    deputies.insert(seats[i][j+1]);
+                if(j>0)
+                    deputies.insert(seats[i][j-1]);
+            }
+        }
+    }
+    deputies.erase(pres);
+    deputies.erase('.');
+    cout << deputies.size() << endl;
     return 0;
 }

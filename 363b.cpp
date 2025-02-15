@@ -51,13 +51,26 @@ const ld pi = acos(-1.0);
 
 
 int main(){
-    int t;
-    cin >> t;
-    while(t--){    
-        int n;
-        cin >> n;
-        vector<ll> arr(n);
-        geta(arr, 0, n);
+    ll n, ksum=0, k, resi=0, minsum=INT_MAX;
+    cin >> n >> k;
+    vector<ll> arr(n);
+    geta(arr, 0, n);
+    ll i = 0;
+    for(; i<k; i++){
+        ksum += arr[i];
     }
+    minsum = ksum;
+    resi = 0;
+    i=0;
+    while(i+k<n){
+        ksum += arr[i+k];
+        ksum -= arr[i];
+        if(ksum < minsum){
+            minsum = ksum;
+            resi = i+1;
+        }
+        i++;
+    }
+    cout << resi+1 << endl;
     return 0;
 }
