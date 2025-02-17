@@ -53,22 +53,15 @@ const ld pi = acos(-1.0);
 int main(){   
     ll n, m, k, t;
     cin >> n >> m >> k >> t;
-    vector<vector<int>> field(n, vector<int> (m, 0));
     ll a, b;
+    vector<ll> wastes;
     for(int i=0; i<k; i++){
         cin >> a >> b;
-        field[a-1][b-1] = -1;
+        wastes.push_back(m*(a-1)+b-1);
     }
     int cur=0;
     vector<string> crops = {"Waste", "Carrots", "Kiwis", "Grapes"};
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            if(field[i][j]!=-1){
-                field[i][j] = cur;
-                cur = (cur+1)%3;
-            }
-        }
-    }
+    sort(wastes.begin(), wastes.end());
     // for(int i=0; i<n; i++){
     //     for(int j=0; j<m; j++){
     //         cout << field[i][j] << " ";
@@ -77,7 +70,13 @@ int main(){
     // }
     while(t--){
         cin >> a >> b;
-        cout << crops[field[a-1][b-1]+1] << endl;
+        ll cur = m*(a-1) + b-1;
+        ll pos = lower_bound(wastes.begin(), wastes.end(), cur)-wastes.begin();
+        if(wastes[pos] == cur){
+            cout << crops[0] << "\n";
+        } else{
+            cout << crops[(cur-pos)%3+1] << "\n";
+        }
     }   
     return 0;
 }
