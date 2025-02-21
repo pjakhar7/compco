@@ -11,6 +11,7 @@
 #include <cstring>
 #include <tuple>
 #include <stack>
+#include <iomanip>
 
 using namespace std;
 
@@ -50,28 +51,48 @@ const ld ep = 0.0000001;
 const ld pi = acos(-1.0);
 
 
-int main(){   
-    ll n, m, k, t;
-    cin >> n >> m >> k >> t;
+int main(){
     ll a, b;
-    vector<ll> wastes;
-    for(int i=0; i<k; i++){
-        cin >> a >> b;
-        wastes.push_back(m*(a-1)+b-1);
-    }
-    int cur=0;
-    vector<string> crops = {"Waste", "Carrots", "Kiwis", "Grapes"};
-    sort(wastes.begin(), wastes.end());
- 
-    while(t--){
-        cin >> a >> b;
-        ll cur = m*(a-1) + b-1;
-        ll pos = lower_bound(wastes.begin(), wastes.end(), cur)-wastes.begin();
-        if(wastes[pos] == cur){
-            cout << crops[0] << "\n";
-        } else{
-            cout << crops[(cur-pos)%3+1] << "\n";
+    cin >> a >> b;
+    ll ia=a, ib=b;
+    vector<ll> periods;
+    if(ia==ib){
+        cout << "Equal\n";
+        return 0;
+    }    
+    while(ia!=ib){
+        if(ia<ib){
+            periods.push_back(ia);
+            ia += a;
+        } else {
+            periods.push_back(ib);
+            ib += b;
         }
-    }   
+    }
+    periods.push_back(ia);
+    ll dasha=0, masha=0, lasti=0;
+    // for(auto i: periods)
+    //     cout << i << " ";
+    // cout << endl;
+    for(int i=0; i<periods.size()-1; i++){
+        if(periods[i]%a==0){
+            dasha += periods[i] - lasti;
+        } else {
+            masha += periods[i] - lasti;
+        }
+        lasti = periods[i];
+    }
+    if(a>b){
+        dasha += periods[periods.size()-1] - lasti;
+    } else {
+        masha += periods[periods.size()-1] - lasti;
+    }
+    // cout << dasha << " " << masha << endl;
+    if(dasha>masha)
+        cout << "Dasha\n";
+    else if(masha>dasha)
+        cout << "Masha\n";
+    else 
+        cout << "Equal\n";
     return 0;
 }

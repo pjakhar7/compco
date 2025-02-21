@@ -50,28 +50,32 @@ const ld ep = 0.0000001;
 const ld pi = acos(-1.0);
 
 
-int main(){   
-    ll n, m, k, t;
-    cin >> n >> m >> k >> t;
-    ll a, b;
-    vector<ll> wastes;
-    for(int i=0; i<k; i++){
+int main(){
+    int p,q,l,r, a, b;
+    cin >> p >> q >> l >> r;
+    vector<pair<int,int>> zsegs, xsegs;
+    for(int i=0; i<p; i++){
         cin >> a >> b;
-        wastes.push_back(m*(a-1)+b-1);
+        zsegs.push_back({a,b});
     }
-    int cur=0;
-    vector<string> crops = {"Waste", "Carrots", "Kiwis", "Grapes"};
-    sort(wastes.begin(), wastes.end());
- 
-    while(t--){
+    map<int,bool> zactive;
+    for(auto s: zsegs){
+        for(int i=s.first; i<=s.second; i++)
+            zactive[i] = true;
+    }
+    for(int i=0; i<q; i++){
         cin >> a >> b;
-        ll cur = m*(a-1) + b-1;
-        ll pos = lower_bound(wastes.begin(), wastes.end(), cur)-wastes.begin();
-        if(wastes[pos] == cur){
-            cout << crops[0] << "\n";
-        } else{
-            cout << crops[(cur-pos)%3+1] << "\n";
+        xsegs.push_back({a,b});
+    }
+    set<int> res;
+    for(auto ii: xsegs){
+        for(int i=ii.first; i<=ii.second; i++){
+            for(int t=l; t<=r; t++){
+                if(zactive[i+t])
+                    res.insert(t);
+            }
         }
-    }   
+    }
+    cout << res.size() << endl;
     return 0;
 }
